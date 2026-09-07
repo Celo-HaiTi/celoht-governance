@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Environment / secrets — NEVER commit real values
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+*.pem
+*.key
+*.p12
+*keystore*
+secrets/
+credentials/
+
+# Wallet / key material — must never exist in this repo
+*mnemonic*
+*seed-phrase*
+*private-key*
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# Coverage / test artifacts
+coverage/
+.nyc_output/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Supabase local
+supabase/.temp/
