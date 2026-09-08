@@ -194,4 +194,6 @@ Additional implementation gates now present in the repository:
 - `npm run validate:contracts -- /path/to/celoSepolia.json` checks the verified
   network, addresses, and deployment block.
 - `CeloExecutionVerifier` is required before an `EXECUTED` state transition.
+- `src/api/httpServer.ts` exposes the authenticated, idempotent workflow
+  boundary for backend integration.
 - CI runs typecheck, lint, tests, build, and high-severity dependency audit.

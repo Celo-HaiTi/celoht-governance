@@ -44,6 +44,7 @@ src/
   security/         RBAC/least-privilege matrix, signature verification
   schemas/           zod input/output schemas for every backend operation
   infrastructure/    env validation, Supabase adapters, verified Celo execution
+  api/               dependency-injected HTTP boundary and safe JSON errors
   errors/            typed GovernanceError hierarchy
 migrations/          PostgreSQL/Supabase schema (append-only audit log, DB-level
                      duplicate-vote prevention, check constraints)

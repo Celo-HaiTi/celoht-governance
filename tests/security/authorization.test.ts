@@ -100,6 +100,28 @@ describe('Security invariants: authorization, self-approval, unauthorized execut
     });
   });
 
+  it('execution fails closed when no chain verifier is wired', async () => {
+    const proposal = await service.createProposal(
+      { title: 'Verifier is mandatory', description: 'x'.repeat(30), proposerId: 'proposer-1', proposalType: 'TREASURY_ACTION', executionDelaySeconds: 0, metadata: {} },
+      'v1',
+    );
+    await service.submitProposal(proposal.id, 'proposer-1', 'v2');
+    await service.beginReview(proposal.id, 'reviewer-1', 'v3');
+    await service.activateForVoting(proposal.id, 'reviewer-1', 3600, 'v4');
+    const current = (await proposals.getById(proposal.id))!;
+    await proposals.update({ ...current, status: 'QUORUM_REACHED' });
+    await service.approveProposal(proposal.id, 'admin-1', 'v5');
+    await service.queueProposal(proposal.id, 'admin-1', 'v6');
+    members.seed(makeMember({ id: 'treasury-1', roles: ['TREASURY_AUTHORIZER'] }));
+
+    const unverifiedService = new ProposalService(
+      proposals, members, new AuditService(new InMemoryAuditRepository(), clock, new FakeIdGenerator()),
+      clock, new FakeIdGenerator(), { currentVersion: (): string => '1.0.0' },
+    );
+    await expect(unverifiedService.recordExecution(proposal.id, 'treasury-1', `0x${'4'.repeat(64)}`, 'v7'))
+      .rejects.toMatchObject({ code: 'MISSING_CONFIGURATION' });
+  });
+
   it('timelock must elapse before execution is permitted', async () => {
     const proposal = await service.createProposal(
       { title: 'Timelock test', description: 'x'.repeat(30), proposerId: 'proposer-1', proposalType: 'TREASURY_ACTION', executionDelaySeconds: 3600, metadata: {} },
