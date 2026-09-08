@@ -31,23 +31,50 @@ function toProposal(row: WorkflowRow): Proposal {
   };
 }
 
+function toRow(proposal: Proposal): WorkflowRow {
+  return {
+    id: proposal.id,
+    title: proposal.title,
+    description: proposal.description,
+    proposer_id: proposal.proposerId,
+    proposal_type: proposal.proposalType,
+    status: proposal.status,
+    governance_version: proposal.governanceVersion,
+    created_at: proposal.createdAt,
+    submitted_at: proposal.submittedAt,
+    voting_starts_at: proposal.votingStartsAt,
+    voting_ends_at: proposal.votingEndsAt,
+    quorum_bps: proposal.quorumBps,
+    approval_threshold_bps: proposal.approvalThresholdBps,
+    execution_delay_seconds: proposal.executionDelaySeconds,
+    execution_status: proposal.executionStatus,
+    queued_at: proposal.queuedAt,
+    executable_at: proposal.executableAt,
+    executed_at: proposal.executedAt,
+    cancellation_reason: proposal.cancellationReason,
+    rejection_reason: proposal.rejectionReason,
+    metadata: proposal.metadata,
+    updated_at: proposal.updatedAt,
+  };
+}
+
 export class SupabaseProposalRepository implements ProposalRepository {
   constructor(private readonly client = getSupabaseClient()) {}
 
   async create(proposal: Proposal): Promise<Proposal> {
-    const { data, error } = await this.client.from('governance_proposals').insert(proposal).select().single();
+    const { data, error } = await this.client.from('governance_workflows').insert(toRow(proposal)).select().single();
     if (error) throw error;
     return toProposal(data as WorkflowRow);
   }
 
   async getById(id: string): Promise<Proposal | null> {
-    const { data, error } = await this.client.from('governance_proposals').select().eq('id', id).maybeSingle();
+    const { data, error } = await this.client.from('governance_workflows').select().eq('id', id).maybeSingle();
     if (error) throw error;
     return data ? toProposal(data as WorkflowRow) : null;
   }
 
   async update(proposal: Proposal): Promise<Proposal> {
-    const { data, error } = await this.client.from('governance_proposals').update(proposal).eq('id', proposal.id).select().single();
+    const { data, error } = await this.client.from('governance_workflows').update(toRow(proposal)).eq('id', proposal.id).select().single();
     if (error) throw error;
     return toProposal(data as WorkflowRow);
   }
@@ -59,7 +86,7 @@ export class SupabaseProposalRepository implements ProposalRepository {
     limit: number;
     cursor?: string;
   }): Promise<{ items: Proposal[]; nextCursor: string | null }> {
-    let query = this.client.from('governance_proposals').select('*').limit(filter.limit);
+    let query = this.client.from('governance_workflows').select('*').limit(filter.limit);
     if (filter.status) query = query.eq('status', filter.status);
     if (filter.proposalType) query = query.eq('proposal_type', filter.proposalType);
     if (filter.proposerId) query = query.eq('proposer_id', filter.proposerId);

@@ -1,6 +1,7 @@
 import type { GovernanceMember, Proposal, Vote } from '../domain/types.js';
 import type { CastVoteInput } from '../schemas/proposal.schema.js';
 import { Errors } from '../errors/GovernanceError.js';
+import { assertTransition } from '../domain/stateMachine.js';
 import { hasCapability } from '../security/rbac.js';
 import type {
   Clock,
@@ -161,6 +162,15 @@ export class VotingService {
       votesAbstainCount,
       takenAt: this.clock.now().toISOString(),
     });
+
+    if (quorumReached && proposal.status === 'VOTING') {
+      assertTransition(proposal.status, 'QUORUM_REACHED');
+      await this.proposals.update({
+        ...proposal,
+        status: 'QUORUM_REACHED',
+        updatedAt: this.clock.now().toISOString(),
+      });
+    }
 
     await this.audit.record({
       actorId: null,

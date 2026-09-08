@@ -9,8 +9,8 @@ create table if not exists public.governance_workflows (
 	title text not null,
 	description text not null,
 	proposer_id uuid not null,
-	proposal_type text not null,
-	status text not null,
+	proposal_type text not null check (proposal_type in ('POLICY_CHANGE', 'GOVERNANCE_CHANGE', 'TREASURY_ACTION', 'COMMUNITY_FUNDING', 'PROGRAM_CHANGE', 'AGENT_NETWORK_CHANGE', 'REFORESTATION_ACTION', 'EDUCATION_PROGRAM_CHANGE', 'EMERGENCY_ACTION')),
+	status text not null check (status in ('DRAFT', 'SUBMITTED', 'UNDER_REVIEW', 'ACTIVE', 'VOTING', 'QUORUM_REACHED', 'APPROVED', 'REJECTED', 'QUEUED', 'EXECUTED', 'CANCELLED', 'EXPIRED')),
 	governance_version text not null,
 	created_at timestamptz not null,
 	submitted_at timestamptz,
@@ -110,6 +110,21 @@ create table if not exists public.governance_workflow_audit_logs (
 create index if not exists governance_workflow_audit_target_idx on public.governance_workflow_audit_logs(target_entity, target_id, "timestamp");
 alter table public.governance_workflow_audit_logs enable row level security;
 revoke all on public.governance_workflow_audit_logs from anon, authenticated;
+
+create table if not exists public.governance_workflow_executions (
+	id uuid primary key default gen_random_uuid(),
+	proposal_id uuid not null unique references public.governance_workflows(id) on delete restrict,
+	transaction_hash text not null unique check (transaction_hash ~ '^0x[0-9a-fA-F]{64}$'),
+	status text not null check (status in ('PENDING', 'VERIFIED', 'FAILED')),
+	verified_at timestamptz,
+	chain_id integer not null check (chain_id > 0),
+	target_address text,
+	executed_by uuid,
+	created_at timestamptz not null default now(),
+	metadata jsonb not null default '{}'::jsonb
+);
+alter table public.governance_workflow_executions enable row level security;
+revoke all on public.governance_workflow_executions from anon, authenticated;
 
 create or replace function public.reject_governance_workflow_audit_mutation()
 returns trigger language plpgsql as $$

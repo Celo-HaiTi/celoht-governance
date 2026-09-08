@@ -77,6 +77,7 @@ describe('VotingService — duplicate votes and quorum invariants', () => {
     const result = await service.computeQuorum('prop-1', 'c2');
     expect(result.quorumReached).toBe(true);
     expect(result.thresholdMet).toBe(true); // 100% FOR among decisive votes
+    expect((await proposals.getById('prop-1'))?.status).toBe('QUORUM_REACHED');
     expect(quorum.snapshots).toHaveLength(1);
   });
 
