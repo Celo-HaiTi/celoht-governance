@@ -67,7 +67,10 @@ export function createGovernanceHttpServer(dependencies: GovernanceHttpDependenc
       }
       if (request.method !== 'POST') return send(response, 405, { error: { code: 'METHOD_NOT_ALLOWED', message: 'Method not allowed' } });
 
-      const actor = await dependencies.auth.authenticate(request.headers.authorization);
+      const actor = await dependencies.auth.authenticate({
+        authorizationHeader: request.headers.authorization,
+        cookieHeader: request.headers.cookie,
+      });
       const body = await readJson(request);
       const idempotencyKey = request.headers['idempotency-key']?.toString();
       const operation = `${request.method} ${url.pathname}`;

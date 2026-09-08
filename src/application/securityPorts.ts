@@ -1,7 +1,12 @@
 import type { GovernanceMember } from '../domain/types.js';
 
+export interface AuthenticationRequest {
+  authorizationHeader: string | undefined;
+  cookieHeader: string | undefined;
+}
+
 export interface Authenticator {
-  authenticate(authorizationHeader: string | undefined): Promise<GovernanceMember>;
+  authenticate(request: AuthenticationRequest): Promise<GovernanceMember>;
 }
 
 export interface IdempotencyStore {

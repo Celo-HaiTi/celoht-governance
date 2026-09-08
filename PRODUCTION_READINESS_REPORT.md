@@ -196,4 +196,6 @@ Additional implementation gates now present in the repository:
 - `CeloExecutionVerifier` is required before an `EXECUTED` state transition.
 - `src/api/httpServer.ts` exposes the authenticated, idempotent workflow
   boundary for backend integration.
+- `BackendAuthenticator` integrates the backend's verified actor resolver and
+  does not duplicate its HMAC session cryptography.
 - CI runs typecheck, lint, tests, build, and high-severity dependency audit.
