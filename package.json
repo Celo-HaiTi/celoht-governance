@@ -15,7 +15,8 @@
     "test:integration": "vitest run tests/integration",
     "test:security": "vitest run tests/security",
     "test:coverage": "vitest run --coverage",
-    "production:readiness": "node --loader ts-node/esm scripts/production-readiness.ts"
+    "production:readiness": "node --loader ts-node/esm scripts/production-readiness.ts",
+    "validate:contracts": "node --loader ts-node/esm scripts/validate-contract-manifest.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
@@ -29,8 +30,9 @@
     "eslint": "^8.57.0",
     "prettier": "^3.3.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3",
-    "vitest": "^1.6.0",
-    "@vitest/coverage-v8": "^1.6.0"
+    "typescript": "5.5.3",
+    "vitest": "5.0.0",
+    "@vitest/coverage-v8": "5.0.0",
+    "vite": "8.2.2"
   }
 }

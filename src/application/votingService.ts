@@ -153,6 +153,7 @@ export class VotingService {
 
     await this.quorumRepo.saveSnapshot({
       proposalId,
+      governanceVersion: proposal.governanceVersion,
       eligibleMemberCount,
       quorumRequired,
       votesForCount,

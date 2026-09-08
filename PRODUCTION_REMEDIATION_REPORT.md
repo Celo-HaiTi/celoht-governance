@@ -153,4 +153,23 @@ must not require or invent a timelock contract address. The only contract
 addresses accepted for the currently verified Sepolia deployment are supplied
 through runtime configuration and must match the deployment artifact.
 
+## Implemented in the current synchronization tranche
+
+- Added a self-contained `migrations/002_production_security.sql` for
+   application-owned workflow, member mapping, vote, quorum, idempotency, and
+   append-only audit tables. Public Data API roles are denied by default.
+- Removed the duplicate root-level governance migration so this repository no
+   longer presents an independent database source of truth.
+- Added strict verified Celo Sepolia manifest validation and tests.
+- Added real viem EIP-712 governance-action verification and separate EIP-191
+   wallet-auth verification.
+- Added Celo receipt verification for chain, success, target, calldata, value,
+   and confirmation depth.
+- Made execution verification mandatory before the service can transition a
+   proposal to `EXECUTED`.
+- Normalized Supabase persistence rows into the domain model instead of
+   returning snake_case database records as domain objects.
+- Added source-of-truth, ownership, RBAC, auth, contract, treasury, and
+   on-chain/off-chain mapping documentation.
+
 This repository can enforce the correct boundary and fail closed, but it cannot claim production readiness until those external dependencies are actually configured and validated.

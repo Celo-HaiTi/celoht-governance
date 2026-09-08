@@ -63,6 +63,10 @@ export interface ExecutionRepository {
   findByTxHash(txHash: string): Promise<ExecutionRecord | null>;
 }
 
+export interface ExecutionVerifier {
+  verify(proposal: Proposal, transactionHash: string): Promise<void>;
+}
+
 export interface Clock {
   now(): Date;
 }

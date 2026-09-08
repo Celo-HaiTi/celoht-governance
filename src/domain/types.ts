@@ -92,6 +92,7 @@ export interface Vote {
 
 export interface QuorumSnapshot {
   proposalId: string;
+  governanceVersion: string;
   eligibleMemberCount: number;
   quorumRequired: number; // computed count, not just bps
   votesForCount: number;

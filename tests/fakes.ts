@@ -25,22 +25,22 @@ export class FakeIdGenerator implements IdGenerator {
 
 export class InMemoryProposalRepository implements ProposalRepository {
   private store = new Map<string, Proposal>();
-  async create(p: Proposal) { this.store.set(p.id, p); return p; }
-  async getById(id: string) { return this.store.get(id) ?? null; }
-  async update(p: Proposal) { this.store.set(p.id, p); return p; }
-  async list() { return { items: [...this.store.values()], nextCursor: null }; }
+  async create(p: Proposal): Promise<Proposal> { this.store.set(p.id, p); return p; }
+  async getById(id: string): Promise<Proposal | null> { return this.store.get(id) ?? null; }
+  async update(p: Proposal): Promise<Proposal> { this.store.set(p.id, p); return p; }
+  async list(): Promise<{ items: Proposal[]; nextCursor: string | null }> { return { items: [...this.store.values()], nextCursor: null }; }
 }
 
 export class InMemoryVoteRepository implements VoteRepository {
   private store = new Map<string, Vote>();
-  async create(v: Vote) { this.store.set(v.id, v); return v; }
-  async findByProposalAndMember(proposalId: string, memberId: string) {
+  async create(v: Vote): Promise<Vote> { this.store.set(v.id, v); return v; }
+  async findByProposalAndMember(proposalId: string, memberId: string): Promise<Vote | null> {
     return [...this.store.values()].find((v) => v.proposalId === proposalId && v.memberId === memberId) ?? null;
   }
-  async listByProposal(proposalId: string) {
+  async listByProposal(proposalId: string): Promise<Vote[]> {
     return [...this.store.values()].filter((v) => v.proposalId === proposalId);
   }
-  async invalidate(voteId: string, reason: string) {
+  async invalidate(voteId: string, reason: string): Promise<void> {
     const v = this.store.get(voteId);
     if (v) this.store.set(voteId, { ...v, invalidated: true, invalidatedReason: reason });
   }
@@ -48,23 +48,23 @@ export class InMemoryVoteRepository implements VoteRepository {
 
 export class InMemoryMemberRepository implements MemberRepository {
   constructor(private members = new Map<string, GovernanceMember>()) {}
-  seed(m: GovernanceMember) { this.members.set(m.id, m); }
-  async getById(id: string) { return this.members.get(id) ?? null; }
-  async countEligible() { return [...this.members.values()].filter((m) => m.status === 'ACTIVE').length; }
-  async update(m: GovernanceMember) { this.members.set(m.id, m); return m; }
+  seed(m: GovernanceMember): void { this.members.set(m.id, m); }
+  async getById(id: string): Promise<GovernanceMember | null> { return this.members.get(id) ?? null; }
+  async countEligible(): Promise<number> { return [...this.members.values()].filter((m) => m.status === 'ACTIVE').length; }
+  async update(m: GovernanceMember): Promise<GovernanceMember> { this.members.set(m.id, m); return m; }
 }
 
 export class InMemoryAuditRepository implements AuditRepository {
   public entries: AuditLogEntry[] = [];
-  async append(e: AuditLogEntry) { this.entries.push(e); return e; }
-  async listByTarget(targetEntity: string, targetId: string) {
+  async append(e: AuditLogEntry): Promise<AuditLogEntry> { this.entries.push(e); return e; }
+  async listByTarget(targetEntity: string, targetId: string): Promise<AuditLogEntry[]> {
     return this.entries.filter((e) => e.targetEntity === targetEntity && e.targetId === targetId);
   }
 }
 
 export class InMemoryQuorumRepository implements QuorumRepository {
   public snapshots: QuorumSnapshot[] = [];
-  async saveSnapshot(s: QuorumSnapshot) { this.snapshots.push(s); return s; }
+  async saveSnapshot(s: QuorumSnapshot): Promise<QuorumSnapshot> { this.snapshots.push(s); return s; }
 }
 
 export function makeMember(overrides: Partial<GovernanceMember> & { id: string }): GovernanceMember {

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { Errors } from '../errors/GovernanceError.js';
+import { assertVerifiedSepoliaConfiguration } from './contracts/verifiedDeployment.js';
 
 /**
  * Startup environment validation. Fails closed (Section 21 / 31):
@@ -48,6 +49,10 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): GovernanceEnv 
 
   const env = parsed.data;
 
+  if (env.CELO_NETWORK !== 'sepolia') {
+    throw Errors.validation('Only the verified Celo Sepolia deployment is enabled');
+  }
+
   if (env.NODE_ENV === 'production') {
     const prodParsed = productionOnlySchema.safeParse(source);
     const secretKey = source.SUPABASE_SECRET_KEY?.trim() || source.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -60,6 +65,7 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): GovernanceEnv 
       // absent treasury/governance contract address (Section 32/34).
       throw Errors.missingConfiguration(missing);
     }
+    assertVerifiedSepoliaConfiguration(source);
     return { ...env, ...prodParsed.data, SUPABASE_SECRET_KEY: secretKey };
   }
 

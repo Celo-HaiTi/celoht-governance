@@ -38,7 +38,6 @@ export function readinessCheck(): Promise<ApiResponse<{ status: 'ready' | 'block
   if (!process.env.SUPABASE_URL) issues.push('SUPABASE_URL missing');
   if (!process.env.CELO_RPC_URL) issues.push('CELO_RPC_URL missing');
   if (!process.env.GOVERNANCE_CONTRACT_ADDRESS) issues.push('GOVERNANCE_CONTRACT_ADDRESS missing');
-  if (!process.env.TIMELOCK_CONTRACT_ADDRESS) issues.push('TIMELOCK_CONTRACT_ADDRESS missing');
   if (!process.env.TREASURY_MULTISIG_ADDRESS) issues.push('TREASURY_MULTISIG_ADDRESS missing');
   if (!process.env.USDM_TOKEN_ADDRESS) issues.push('USDM_TOKEN_ADDRESS missing');
 

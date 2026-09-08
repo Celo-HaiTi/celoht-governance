@@ -14,7 +14,12 @@ function main(): void {
       'USDM_TOKEN_ADDRESS',
     ];
 
-    const missing = required.filter((key) => !String((env as Record<string, unknown>)[key] ?? '').trim());
+    const hasSupabaseSecret = Boolean(
+      String((env as Record<string, unknown>).SUPABASE_SECRET_KEY ?? '').trim()
+      || String((env as Record<string, unknown>).SUPABASE_SERVICE_ROLE_KEY ?? '').trim(),
+    );
+    const missing = required.filter((key) => key !== 'SUPABASE_SECRET_KEY' && !String((env as Record<string, unknown>)[key] ?? '').trim());
+    if (!hasSupabaseSecret) missing.push('SUPABASE_SECRET_KEY (or legacy SUPABASE_SERVICE_ROLE_KEY)');
     if (missing.length > 0) {
       console.log('BLOCKED');
       console.log(`Missing required configuration: ${missing.join(', ')}`);

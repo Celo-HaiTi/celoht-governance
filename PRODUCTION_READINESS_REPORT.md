@@ -185,3 +185,13 @@ project, auth authority, RPC, deployment artifact validation, and runtime
 secrets are provided. The current configuration no longer requires an invented
 `TIMELOCK_CONTRACT_ADDRESS`; it requires the verified governance, USDm, and
 Treasury Safe addresses plus the persistent service-side delay.
+
+Additional implementation gates now present in the repository:
+
+- `migrations/002_production_security.sql` is the application-owned workflow
+  migration and must be applied through the canonical `celoht-supabase`
+  migration process.
+- `npm run validate:contracts -- /path/to/celoSepolia.json` checks the verified
+  network, addresses, and deployment block.
+- `CeloExecutionVerifier` is required before an `EXECUTED` state transition.
+- CI runs typecheck, lint, tests, build, and high-severity dependency audit.

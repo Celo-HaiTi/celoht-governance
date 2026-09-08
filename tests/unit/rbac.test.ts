@@ -3,7 +3,7 @@ import { hasCapability, requireCapability, assertNotSelfActing } from '../../src
 import { GovernanceError } from '../../src/errors/GovernanceError.js';
 import type { GovernanceMember } from '../../src/domain/types.js';
 
-function member(roles: GovernanceMember['roles'], status: GovernanceMember['status'] = 'ACTIVE') {
+function member(roles: GovernanceMember['roles'], status: GovernanceMember['status'] = 'ACTIVE'): Pick<GovernanceMember, 'roles' | 'status'> {
   return { roles, status };
 }
 

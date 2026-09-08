@@ -23,9 +23,11 @@ export type GovernanceErrorCode =
   | 'SELF_APPROVAL_FORBIDDEN'
   | 'INVALID_SIGNATURE'
   | 'SIGNATURE_REPLAY'
+  | 'SIGNATURE_EXPIRED'
   | 'CHAIN_ID_MISMATCH'
   | 'MISSING_CONFIGURATION'
   | 'UNVERIFIED_CONTRACT_ADDRESS'
+  | 'EXECUTION_VERIFICATION_FAILED'
   | 'VALIDATION_ERROR';
 
 export class GovernanceError extends Error {
@@ -97,6 +99,8 @@ export const Errors = {
     new GovernanceError('INVALID_SIGNATURE', 'Signature verification failed', 401),
   signatureReplay: (): GovernanceError =>
     new GovernanceError('SIGNATURE_REPLAY', 'This signature/nonce has already been used', 409),
+  signatureExpired: (): GovernanceError =>
+    new GovernanceError('SIGNATURE_EXPIRED', 'The signed governance action has expired', 401),
   chainIdMismatch: (expected: number, actual: number): GovernanceError =>
     new GovernanceError('CHAIN_ID_MISMATCH', `Expected chain ${expected}, got ${actual}`, 400, { expected, actual }),
   missingConfiguration: (variable: string): GovernanceError =>
@@ -111,6 +115,8 @@ export const Errors = {
       `Contract address for '${name}' is not present in verified deployment configuration. Refusing to proceed with an unverified/invented address.`,
       500,
     ),
+  executionVerificationFailed: (reason: string): GovernanceError =>
+    new GovernanceError('EXECUTION_VERIFICATION_FAILED', reason, 422),
   validation: (msg: string, details?: Record<string, unknown>): GovernanceError =>
     new GovernanceError('VALIDATION_ERROR', msg, 422, details),
 };

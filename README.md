@@ -10,15 +10,11 @@ entrepreneurship, community development, agent networks, and
 reforestation. This repository defines **how decisions get made** —
 not any single application's admin panel.
 
-> **Status: reference implementation, not yet deployed.**
+> **Status: implementation synchronized with the public CeloHT architecture; deployment remains blocked until runtime infrastructure is configured.**
 > See [`PRODUCTION_READINESS_REPORT.md`](./PRODUCTION_READINESS_REPORT.md)
-> for exactly what is implemented, what is verified, and what is
-> blocked on external dependencies (real contract addresses, a live
-> Supabase project, CI credentials, etc.). This repo was generated
-> without direct access to the `Celo-HaiTi` GitHub organization, so it
-> does **not** assume any pre-existing `celoht-admin` / `celoht-backend`
-> code, schema, or conventions — see "Integrating this into an
-> existing CeloHT codebase" below.
+> for exactly what is implemented, what is verified, and what remains
+> blocked on runtime infrastructure. The public CeloHT repositories were
+> inspected and the synchronization baseline is documented under `docs/`.
 
 ## Why this exists
 
@@ -47,13 +43,13 @@ src/
   application/      services: proposals, voting, audit (business rules only)
   security/         RBAC/least-privilege matrix, signature verification
   schemas/           zod input/output schemas for every backend operation
-  infrastructure/    env validation; DB adapters go here (not yet wired to a real DB)
+  infrastructure/    env validation, Supabase adapters, verified Celo execution
   errors/            typed GovernanceError hierarchy
 migrations/          PostgreSQL/Supabase schema (append-only audit log, DB-level
                      duplicate-vote prevention, check constraints)
 tests/
   unit/               state machine + RBAC invariants
-  integration/         service-level tests against in-memory fakes
+  integration/         service-level tests against explicit test doubles
   security/            authorization, self-approval, replay/double-execution
 .github/workflows/    CI: lint, typecheck, test, CodeQL
 docs/ (root .md files) full documentation set (see below)
@@ -102,22 +98,19 @@ as a stablecoin and gas asset, never as governance tokens. See
 | [PRODUCTION_READINESS_REPORT.md](./PRODUCTION_READINESS_REPORT.md) | Honest IMPLEMENTED/BLOCKED status |
 | [CHANGELOG.md](./CHANGELOG.md) | Version history |
 
-## Integrating this into an existing CeloHT codebase
+## Integrating this into the CeloHT codebase
 
-This repository was built **without GitHub access to the `Celo-HaiTi`
-org** — no ability to inspect `celoht-admin`, `celoht-backend`, an
-existing Supabase schema, or real contract addresses. Before treating
-any of this as authoritative over existing CeloHT code:
+The public `Celo-HaiTi` repositories have been inspected. The following
+rules remain mandatory before deployment:
 
-1. Diff `migrations/001_init_governance_schema.sql` against any
-   existing governance-related tables and reconcile naming.
-2. Diff `src/domain/types.ts` / `src/schemas/*` against any existing
-   API contracts in `celoht-backend`.
-3. Replace the placeholder addresses in `.env.example` with real,
-   verified deployment artifacts — never invented ones (see
-   `TREASURY_GOVERNANCE.md`).
-4. Wire `src/infrastructure/db` adapters to the real Supabase project
-   (not included here — see `PRODUCTION_READINESS_REPORT.md`).
+1. Apply `migrations/002_production_security.sql` through the canonical
+  `celoht-supabase` migration process; do not edit applied migrations.
+2. Keep `celoht-backend` as the authentication/API boundary and
+  `celoht-indexer` as the owner of on-chain projections.
+3. Run `npm run validate:contracts -- /path/to/celoSepolia.json` against the
+  canonical deployment artifact.
+4. Inject real Supabase, auth, RPC, and Safe runtime configuration; missing
+  values must remain fail-closed.
 
 ## Getting started (once wired to real infrastructure)
 

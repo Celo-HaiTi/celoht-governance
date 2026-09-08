@@ -3,7 +3,7 @@ import { assertTransition } from '../domain/stateMachine.js';
 import { Errors } from '../errors/GovernanceError.js';
 import { requireCapability, assertNotSelfActing } from '../security/rbac.js';
 import type { CreateProposalInput } from '../schemas/proposal.schema.js';
-import type { Clock, IdGenerator, MemberRepository, ProposalRepository } from './ports.js';
+import type { Clock, ExecutionVerifier, IdGenerator, MemberRepository, ProposalRepository } from './ports.js';
 import type { AuditService } from './auditService.js';
 
 const DEFAULT_QUORUM_BPS = 2000; // 20% — overridable per-proposal, never silently
@@ -22,6 +22,7 @@ export class ProposalService {
     private readonly clock: Clock,
     private readonly ids: IdGenerator,
     private readonly governanceVersion: GovernanceVersionProvider,
+    private readonly executionVerifier?: ExecutionVerifier,
   ) {}
 
   private async requireActiveMember(memberId: string): Promise<GovernanceMember> {
@@ -315,6 +316,10 @@ export class ProposalService {
     if (!proposal.executableAt || this.clock.now() < new Date(proposal.executableAt)) {
       throw Errors.timelockNotElapsed(proposalId, proposal.executableAt ?? 'unknown');
     }
+    if (!this.executionVerifier) {
+      throw Errors.missingConfiguration('ExecutionVerifier');
+    }
+    await this.executionVerifier.verify(proposal, executionTxHash);
 
     const updated = await this.transition(proposal, 'EXECUTED', {
       executedAt: this.clock.now().toISOString(),

@@ -5,6 +5,7 @@ import {
   FakeClock, FakeIdGenerator, InMemoryAuditRepository,
   InMemoryMemberRepository, InMemoryProposalRepository, makeMember,
 } from '../fakes.js';
+import type { ExecutionVerifier } from '../../src/application/ports.js';
 
 describe('Security invariants: authorization, self-approval, unauthorized execution', () => {
   let proposals: InMemoryProposalRepository;
@@ -12,14 +13,15 @@ describe('Security invariants: authorization, self-approval, unauthorized execut
   let service: ProposalService;
   let clock: FakeClock;
 
-  beforeEach(() => {
+  beforeEach((): void => {
     proposals = new InMemoryProposalRepository();
     members = new InMemoryMemberRepository();
     clock = new FakeClock(new Date('2026-01-01T00:00:00Z'));
     const audit = new AuditService(new InMemoryAuditRepository(), clock, new FakeIdGenerator());
     service = new ProposalService(
       proposals, members, audit, clock, new FakeIdGenerator(),
-      { currentVersion: () => '1.0.0' },
+      { currentVersion: (): string => '1.0.0' },
+      { verify: async (): Promise<void> => undefined } satisfies ExecutionVerifier,
     );
     members.seed(makeMember({ id: 'proposer-1', roles: ['PROPOSER'] }));
     members.seed(makeMember({ id: 'admin-1', roles: ['GOVERNANCE_ADMIN'] }));
