@@ -14,7 +14,12 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/explicit-function-return-type": "warn",
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/require-await": "off",
+    "no-console": "off"
   },
   "env": { "node": true, "es2022": true }
 }

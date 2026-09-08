@@ -4,8 +4,7 @@ import { AuditService } from '../../src/application/auditService.js';
 import {
   FakeClock, FakeIdGenerator, InMemoryAuditRepository,
   InMemoryMemberRepository, InMemoryProposalRepository, makeMember,
-} from '../integration/fakes.js';
-import { GovernanceError } from '../../src/errors/GovernanceError.js';
+} from '../fakes.js';
 
 describe('Security invariants: authorization, self-approval, unauthorized execution', () => {
   let proposals: InMemoryProposalRepository;
@@ -85,7 +84,7 @@ describe('Security invariants: authorization, self-approval, unauthorized execut
     await service.submitProposal(proposal.id, 'proposer-1', 'c2');
     await service.beginReview(proposal.id, 'reviewer-1', 'c3');
     await service.activateForVoting(proposal.id, 'reviewer-1', 3600, 'c4');
-    let current = (await proposals.getById(proposal.id))!;
+    const current = (await proposals.getById(proposal.id))!;
     await proposals.update({ ...current, status: 'QUORUM_REACHED' });
     await service.approveProposal(proposal.id, 'admin-1', 'c5');
     await service.queueProposal(proposal.id, 'admin-1', 'c6');
@@ -107,7 +106,7 @@ describe('Security invariants: authorization, self-approval, unauthorized execut
     await service.submitProposal(proposal.id, 'proposer-1', 'c2');
     await service.beginReview(proposal.id, 'reviewer-1', 'c3');
     await service.activateForVoting(proposal.id, 'reviewer-1', 3600, 'c4');
-    let current = (await proposals.getById(proposal.id))!;
+    const current = (await proposals.getById(proposal.id))!;
     await proposals.update({ ...current, status: 'QUORUM_REACHED' });
     await service.approveProposal(proposal.id, 'admin-1', 'c5');
     await service.queueProposal(proposal.id, 'admin-1', 'c6');
@@ -131,7 +130,7 @@ describe('Security invariants: authorization, self-approval, unauthorized execut
     await service.submitProposal(proposal.id, 'proposer-1', 'c2');
     await service.beginReview(proposal.id, 'reviewer-1', 'c3');
     await service.activateForVoting(proposal.id, 'reviewer-1', 3600, 'c4');
-    let current = (await proposals.getById(proposal.id))!;
+    const current = (await proposals.getById(proposal.id))!;
     await proposals.update({ ...current, status: 'QUORUM_REACHED' });
     await service.approveProposal(proposal.id, 'admin-1', 'c5');
     await service.queueProposal(proposal.id, 'admin-1', 'c6');

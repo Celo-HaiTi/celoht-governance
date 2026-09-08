@@ -124,6 +124,64 @@ order:
 2. Provision a real Postgres/Supabase instance and apply the
    migration.
 3. Get real, deployed, verified contract addresses before setting
-   `NODE_ENV=production` anywhere — `env.ts` will refuse to start
-   without them, which is the intended fail-closed behavior, not a
-   bug to work around.
+  `NODE_ENV=production` anywhere — `env.ts` will refuse to start
+  without them, which is the intended fail-closed behavior, not a
+  bug to work around.
+
+## Fresh cross-repository verification
+
+The previous caveat above described an earlier offline workspace state. A fresh
+read-only audit of the public CeloHT repositories has now been completed, and
+the local verification commands have been run successfully.
+
+### Verified Celo Sepolia deployment
+
+The authoritative deployment manifest is
+`celoht-smart-contracts/deployments/celoSepolia.json`, copied into the
+indexer repository. It declares:
+
+- chain ID: `11142220`
+- governance: `0x7D384851FAbB912287206556479Dd30c740CAdA5`
+- USDm: `0xdE9e4C3ce781b4bA68120d6261cbad65ce0aB00b`
+- Treasury Safe: `0xd856e0599cc49C9cef6C358d2c2f064112A6b384`
+- governance deployment block: `35343249`
+- governance deployment transaction:
+  `0x9959ca2ef0a10d5f36d6ec8efc40eae13300288315a66ef2d5a4a519e8c980ad`
+
+No separate timelock contract is present in that manifest or in
+`CeloHTGovernance.sol`. The application timelock is therefore persistent
+service state, while binding treasury execution remains an external Safe
+operation that must be verified on Celo before recording `EXECUTED`.
+
+### Cross-repository ownership contract
+
+- `celoht-backend` owns wallet nonce/signature authentication and server-side
+  authorization. It uses `viem`, atomically consumes nonces, and re-reads the
+  role from the database.
+- `celoht-indexer` owns writes to on-chain tables, including
+  `governance_proposals` and `governance_activity`.
+- `celoht-backend` reads those indexer-owned tables and must not write them.
+- `celoht-supabase` is the canonical SQL source and currently has numbered root
+  migrations through `0012_schema_hardening.sql`.
+- `celoht-admin` is not an authoritative governance store; its forensic report
+  identifies mock-first dashboard paths that must consume backend/indexer
+  provenance instead.
+
+### Current local verification
+
+Fresh commands run in this workspace:
+
+```text
+npm run typecheck        PASS
+npm test -- --run        PASS (25 tests)
+npm run build            PASS
+npm run lint             PASS with 17 existing warnings, 0 errors
+npm run production:readiness  BLOCKED as expected without runtime config
+npm audit --audit-level=high  reports 5 toolchain vulnerabilities
+```
+
+The repository must remain **BLOCKED** for production until the real Supabase
+project, auth authority, RPC, deployment artifact validation, and runtime
+secrets are provided. The current configuration no longer requires an invented
+`TIMELOCK_CONTRACT_ADDRESS`; it requires the verified governance, USDm, and
+Treasury Safe addresses plus the persistent service-side delay.

@@ -111,3 +111,26 @@ export interface AuditLogEntry {
   correlationId: string;
   resultingState: string | null;
 }
+
+export interface GovernanceSettings {
+  version: string;
+  quorumBps: number;
+  approvalThresholdBps: number;
+  votingPeriodSeconds: number;
+  executionDelaySeconds: number;
+  emergencyRoleMaxDurationSeconds: number;
+  updatedAt: string;
+}
+
+export interface ExecutionRecord {
+  id: string;
+  proposalId: string;
+  transactionHash: string;
+  status: 'PENDING' | 'VERIFIED' | 'FAILED';
+  verifiedAt: string | null;
+  chainId: number;
+  targetAddress: string | null;
+  executedBy: string | null;
+  createdAt: string;
+  metadata: Record<string, unknown>;
+}

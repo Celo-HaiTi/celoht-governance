@@ -31,7 +31,7 @@ export type GovernanceErrorCode =
 export class GovernanceError extends Error {
   public readonly code: GovernanceErrorCode;
   public readonly httpStatus: number;
-  public readonly details?: Record<string, unknown>;
+  public readonly details: Record<string, unknown> | undefined;
 
   constructor(
     code: GovernanceErrorCode,

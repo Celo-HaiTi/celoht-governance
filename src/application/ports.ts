@@ -1,4 +1,12 @@
-import type { AuditLogEntry, GovernanceMember, Proposal, QuorumSnapshot, Vote } from '../domain/types.js';
+import type {
+  AuditLogEntry,
+  ExecutionRecord,
+  GovernanceMember,
+  GovernanceSettings,
+  Proposal,
+  QuorumSnapshot,
+  Vote,
+} from '../domain/types.js';
 
 /**
  * Repository ports (Section 24: keep business rules independent from
@@ -42,6 +50,17 @@ export interface AuditRepository {
 
 export interface QuorumRepository {
   saveSnapshot(snapshot: QuorumSnapshot): Promise<QuorumSnapshot>;
+}
+
+export interface GovernanceSettingsRepository {
+  getCurrent(): Promise<GovernanceSettings | null>;
+  update(settings: GovernanceSettings): Promise<GovernanceSettings>;
+}
+
+export interface ExecutionRepository {
+  create(record: ExecutionRecord): Promise<ExecutionRecord>;
+  findByProposalId(proposalId: string): Promise<ExecutionRecord | null>;
+  findByTxHash(txHash: string): Promise<ExecutionRecord | null>;
 }
 
 export interface Clock {

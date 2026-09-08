@@ -1,7 +1,7 @@
 import type { GovernanceMember, Proposal } from '../domain/types.js';
 import { assertTransition } from '../domain/stateMachine.js';
 import { Errors } from '../errors/GovernanceError.js';
-import { hasCapability, requireCapability, assertNotSelfActing } from '../security/rbac.js';
+import { requireCapability, assertNotSelfActing } from '../security/rbac.js';
 import type { CreateProposalInput } from '../schemas/proposal.schema.js';
 import type { Clock, IdGenerator, MemberRepository, ProposalRepository } from './ports.js';
 import type { AuditService } from './auditService.js';

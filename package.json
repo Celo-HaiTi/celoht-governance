@@ -8,15 +8,18 @@
   "engines": { "node": ">=20" },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "eslint src tests --ext .ts",
+    "lint": "eslint src tests scripts --ext .ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
     "test:security": "vitest run tests/security",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "production:readiness": "node --loader ts-node/esm scripts/production-readiness.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "viem": "^2.15.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -25,6 +28,7 @@
     "@typescript-eslint/parser": "^7.16.0",
     "eslint": "^8.57.0",
     "prettier": "^3.3.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
     "vitest": "^1.6.0",
     "@vitest/coverage-v8": "^1.6.0"

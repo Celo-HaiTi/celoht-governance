@@ -4,7 +4,7 @@ import { AuditService } from '../../src/application/auditService.js';
 import {
   FakeClock, FakeIdGenerator, InMemoryAuditRepository, InMemoryMemberRepository,
   InMemoryProposalRepository, InMemoryQuorumRepository, InMemoryVoteRepository, makeMember,
-} from './fakes.js';
+} from '../fakes.js';
 import type { Proposal } from '../../src/domain/types.js';
 import { GovernanceError } from '../../src/errors/GovernanceError.js';
 import type { SignatureVerifier } from '../../src/security/signature.js';

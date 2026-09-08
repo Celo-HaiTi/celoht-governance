@@ -1,8 +1,8 @@
-import type { AuditLogEntry, GovernanceMember, Proposal, QuorumSnapshot, Vote } from '../../src/domain/types.js';
+import type { AuditLogEntry, GovernanceMember, Proposal, QuorumSnapshot, Vote } from '../src/domain/types.js';
 import type {
   AuditRepository, Clock, IdGenerator, MemberRepository,
   ProposalRepository, QuorumRepository, VoteRepository,
-} from '../../src/application/ports.js';
+} from '../src/application/ports.js';
 
 /**
  * In-memory fakes for integration-style tests, per Section 22

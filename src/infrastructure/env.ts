@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Errors } from '../../errors/GovernanceError.js';
+import { Errors } from '../errors/GovernanceError.js';
 
 /**
  * Startup environment validation. Fails closed (Section 21 / 31):
@@ -11,6 +11,8 @@ const baseSchema = z.object({
   DATABASE_URL: z.string().min(1),
   SUPABASE_URL: z.string().url(),
   SUPABASE_ANON_KEY: z.string().min(1),
+  SUPABASE_SECRET_KEY: z.string().min(1).optional(),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
   CELO_NETWORK: z.enum(['mainnet', 'alfajores', 'sepolia']),
   CELO_RPC_URL: z.string().url(),
   CELO_CHAIN_ID: z.coerce.number().int().positive(),
@@ -31,7 +33,6 @@ const baseSchema = z.object({
 const addressSchema = z.string().regex(/^0x[a-fA-F0-9]{40}$/);
 const productionOnlySchema = z.object({
   GOVERNANCE_CONTRACT_ADDRESS: addressSchema,
-  TIMELOCK_CONTRACT_ADDRESS: addressSchema,
   TREASURY_MULTISIG_ADDRESS: addressSchema,
   USDM_TOKEN_ADDRESS: addressSchema,
 });
@@ -49,13 +50,17 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): GovernanceEnv 
 
   if (env.NODE_ENV === 'production') {
     const prodParsed = productionOnlySchema.safeParse(source);
-    if (!prodParsed.success) {
-      const missing = prodParsed.error.issues.map((i) => i.path.join('.')).join(', ');
+    const secretKey = source.SUPABASE_SECRET_KEY?.trim() || source.SUPABASE_SERVICE_ROLE_KEY?.trim();
+    if (!prodParsed.success || !secretKey) {
+      const missing = [
+        ...(!prodParsed.success ? prodParsed.error.issues.map((i) => i.path.join('.')) : []),
+        ...(!secretKey ? ['SUPABASE_SECRET_KEY (or legacy SUPABASE_SERVICE_ROLE_KEY)'] : []),
+      ].join(', ');
       // FAIL CLOSED: never let production run with an unverified or
       // absent treasury/governance contract address (Section 32/34).
       throw Errors.missingConfiguration(missing);
     }
-    return { ...env, ...prodParsed.data };
+    return { ...env, ...prodParsed.data, SUPABASE_SECRET_KEY: secretKey };
   }
 
   return env;

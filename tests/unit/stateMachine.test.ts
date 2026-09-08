@@ -9,7 +9,9 @@ describe('proposal state machine', () => {
       'QUORUM_REACHED', 'APPROVED', 'QUEUED', 'EXECUTED',
     ] as const;
     for (let i = 0; i < path.length - 1; i++) {
-      expect(isValidTransition(path[i], path[i + 1])).toBe(true);
+      const from = path[i]!;
+      const to = path[i + 1]!;
+      expect(isValidTransition(from, to)).toBe(true);
     }
   });
 
