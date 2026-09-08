@@ -103,8 +103,9 @@ as a stablecoin and gas asset, never as governance tokens. See
 The public `Celo-HaiTi` repositories have been inspected. The following
 rules remain mandatory before deployment:
 
-1. Apply `migrations/002_production_security.sql` through the canonical
-  `celoht-supabase` migration process; do not edit applied migrations.
+1. Review and apply `migrations/0013_governance_workflow.sql` as migration
+  `0013` through the canonical `celoht-supabase` process; do not edit applied
+  migrations.
 2. Keep `celoht-backend` as the authentication/API boundary and
   `celoht-indexer` as the owner of on-chain projections.
 3. Run `npm run validate:contracts -- /path/to/celoSepolia.json` against the

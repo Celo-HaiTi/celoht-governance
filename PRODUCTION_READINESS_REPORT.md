@@ -188,9 +188,9 @@ Treasury Safe addresses plus the persistent service-side delay.
 
 Additional implementation gates now present in the repository:
 
-- `migrations/002_production_security.sql` is the application-owned workflow
-  migration and must be applied through the canonical `celoht-supabase`
-  migration process.
+- `migrations/0013_governance_workflow.sql` is an application-owned workflow
+  migration proposal and must be reviewed/applied as migration `0013` through
+  the canonical `celoht-supabase` migration process.
 - `npm run validate:contracts -- /path/to/celoSepolia.json` checks the verified
   network, addresses, and deployment block.
 - `CeloExecutionVerifier` is required before an `EXECUTED` state transition.

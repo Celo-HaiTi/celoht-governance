@@ -26,7 +26,7 @@ The repository was in a pre-architecture state: core governance logic lived at t
 
 5. Missing database hardening
    - The initial migration only created a schema; it did not implement RLS policies, immutable audit protections, duplicate-vote constraints, or execution safeguards.
-   - No 002_production_security.sql existed.
+   - No production workflow migration existed at the initial audit point.
 
 6. Missing fail-closed configuration validation
    - Production configuration was not enforced with a real environment gate.
@@ -72,7 +72,10 @@ The repository was in a pre-architecture state: core governance logic lived at t
 - Reintroduce production-level ports and repository contracts.
 - Implement Supabase/PostgreSQL adapters under src/infrastructure/db and keep them behind the application ports.
 - Add a fail-closed environment loader that rejects missing required production configuration.
-- Add hardened database migration 002_production_security.sql with RLS, policy restrictions, append-only audit protection, duplicate-vote protection, execution hash uniqueness, and required indexes.
+- Add a hardened application workflow migration with RLS, policy restrictions,
+  append-only audit protection, duplicate-vote protection, execution hash
+  uniqueness, and required indexes; this is now proposed as `0013` for the
+  canonical Supabase repository.
 - Add a production API boundary with authentication, RBAC, correlation IDs, safe JSON errors, and audit logging semantics.
 - Add a real Celo verification layer using viem and fail closed on missing addresses or invalid chain verification.
 - Add production readiness and health checks.
@@ -138,7 +141,7 @@ configuration boundary:
    those tables and must not write them.
 - `celoht-supabase` is the canonical migration source and currently uses
    numbered root migrations through `0012_schema_hardening.sql`, not this
-   repository's empty `migrations/` directory. Its governance tables enforce
+   repository's migration directory. Its governance tables enforce
    one-wallet-one-vote with a unique `(proposal_id, voter_wallet_address)` key.
 - `celoht-admin` documents that its current governance/treasury dashboard is
    not authoritative and contains mock-first presentation paths. It must consume
@@ -155,7 +158,7 @@ through runtime configuration and must match the deployment artifact.
 
 ## Implemented in the current synchronization tranche
 
-- Added a self-contained `migrations/002_production_security.sql` for
+- Added a reviewed migration proposal at `migrations/0013_governance_workflow.sql` for
    application-owned workflow, member mapping, vote, quorum, idempotency, and
    append-only audit tables. Public Data API roles are denied by default.
 - Removed the duplicate root-level governance migration so this repository no
@@ -171,5 +174,19 @@ through runtime configuration and must match the deployment artifact.
    returning snake_case database records as domain objects.
 - Added source-of-truth, ownership, RBAC, auth, contract, treasury, and
    on-chain/off-chain mapping documentation.
+
+## Current Supabase repository verification
+
+The current `Celo-HaiTi/celoht-supabase` main commit inspected for this report
+is `5e966fc` (`Add package lockfile`). Its migration order ends at
+`0012_schema_hardening.sql`. The next migration must be created in that
+repository, reviewed, and applied there as `0013`; a migration file in this
+business-rules repository is not proof that the database has been changed.
+
+The canonical database currently defines `profiles`, normalized role tables,
+`governance_proposals`, `governance_activity`, and `audit_logs`. The first two
+governance tables are indexer-owned/public read projections, and `audit_logs` is
+backend-owned append-only data. Governance must not overwrite those ownership
+boundaries or treat its workflow migration as applied until Supabase accepts it.
 
 This repository can enforce the correct boundary and fail closed, but it cannot claim production readiness until those external dependencies are actually configured and validated.
