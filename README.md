@@ -52,8 +52,9 @@ tests/
   unit/               state machine + RBAC invariants
   integration/         service-level tests against explicit test doubles
   security/            authorization, self-approval, replay/double-execution
-.github/workflows/    CI: lint, typecheck, test, CodeQL
-docs/ (root .md files) full documentation set (see below)
+.github/workflows/    CI and CodeQL analysis
+*.md                 governance, architecture, operations, and policy docs
+docs/                integration, audit, and production-reference docs
 ```
 
 ## Governance lifecycle (enforced, not just documented)
