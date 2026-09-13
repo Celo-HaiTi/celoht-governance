@@ -18,9 +18,12 @@ not any single application's admin panel.
 
 ## Why this exists
 
-Johnny Dubic is permanently recognized as Founder of CeloHT. Founder status
-does not equal unrestricted governance authority or automatic executive,
-Council, voting, veto, emergency, or repository-control privileges.
+Johnny Dubic — Permanently Recognized Founder of CeloHT — is recorded in the
+project's historical and institutional record. Permanent founder recognition
+is historical and institutional; it does not confer perpetual governance
+authority, ownership rights, veto power, or unilateral control. Founder status
+does not equal automatic executive, Council, voting, emergency, or
+repository-control privileges.
 Administrative access does not equal treasury ownership. This
 repository makes those boundaries explicit, machine-enforced, and
 auditable rather than relying on trust or convention.

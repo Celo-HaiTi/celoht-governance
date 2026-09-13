@@ -2,10 +2,14 @@
 
 ## Founder
 
-**Johnny Dubic — Founder of CeloHT**
+**Name:** Johnny Dubic
+
+**Role:** Permanently Recognized Founder of CeloHT
 
 The Founder designation recognizes founding history, mission origins, and
-institutional continuity. It does not automatically establish a CEO, Director,
+institutional continuity. Permanent founder recognition is historical and
+institutional; it does not confer perpetual governance authority, ownership
+rights, veto power, or unilateral control. It does not automatically establish a CEO, Director,
 Executive Director, Managing Director, Manager, Foundation Director,
 maintainer, repository owner, Governance Council seat, or Governance Council
 vote.

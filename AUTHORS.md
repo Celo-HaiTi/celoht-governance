@@ -1,7 +1,11 @@
 # Authors and Contributors
 
-CeloHT recognizes **Johnny Dubic — Founder of CeloHT** as a founding and
-historical designation.
+CeloHT recognizes **Johnny Dubic — Permanently Recognized Founder of CeloHT**
+as a founding and historical designation.
+
+Permanent founder recognition is historical and institutional; it does not
+confer perpetual governance authority, ownership rights, veto power, or
+unilateral control.
 
 Founder status is not an executive appointment, repository ownership grant,
 maintainer assignment, Council seat, Council vote, veto, emergency override,
