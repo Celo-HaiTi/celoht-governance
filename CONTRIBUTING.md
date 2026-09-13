@@ -1,6 +1,6 @@
 # Contributing to CeloHT Governance
 
-1. Read `GOVERNANCE_CONSTITUTION.md` first — changes to governance
+1. Read `GOVERNANCE.md` first — changes to governance
    *rules* (not just code style) are themselves governance actions and
    should go through the proposal process once this repo is live, not
    just a GitHub PR review.

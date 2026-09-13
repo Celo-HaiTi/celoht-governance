@@ -18,7 +18,9 @@ not any single application's admin panel.
 
 ## Why this exists
 
-Founder status does not equal unrestricted governance authority.
+Johnny Dubic is permanently recognized as Founder of CeloHT. Founder status
+does not equal unrestricted governance authority or automatic executive,
+Council, voting, veto, emergency, or repository-control privileges.
 Administrative access does not equal treasury ownership. This
 repository makes those boundaries explicit, machine-enforced, and
 auditable rather than relying on trust or convention.
@@ -32,8 +34,9 @@ no hidden administrative powers · reproducible decision-making ·
 on-chain verifiability where appropriate · abuse resistance · clear
 emergency procedures.
 
-See [`GOVERNANCE_CONSTITUTION.md`](./GOVERNANCE_CONSTITUTION.md) for
-the full, versioned articulation of these.
+See [`GOVERNANCE.md`](./GOVERNANCE.md) for the canonical governance policy and
+[`GOVERNANCE_CONSTITUTION.md`](./GOVERNANCE_CONSTITUTION.md) for its versioned
+implementation and security reference.
 
 ## Repository layout
 
@@ -78,8 +81,8 @@ as a stablecoin and gas asset, never as governance tokens. See
 
 | File | Covers |
 |---|---|
-| [GOVERNANCE.md](./GOVERNANCE.md) | Lifecycle, proposal types, state machine |
-| [GOVERNANCE_CONSTITUTION.md](./GOVERNANCE_CONSTITUTION.md) | Formal, versioned constitution |
+| [GOVERNANCE.md](./GOVERNANCE.md) | Canonical governance policy, lifecycle, and proposal process |
+| [GOVERNANCE_CONSTITUTION.md](./GOVERNANCE_CONSTITUTION.md) | Versioned implementation and security reference |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | System architecture, module boundaries |
 | [SECURITY.md](./SECURITY.md) | Security model, protections implemented |
 | [THREAT_MODEL.md](./THREAT_MODEL.md) | Threats considered and mitigations |

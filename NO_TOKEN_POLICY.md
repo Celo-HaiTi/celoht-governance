@@ -19,5 +19,5 @@ CeloHT governance token, tokenomics, or investment product.
    rejected in review.
 5. If a future community decision changes this policy, it must happen
    through a formal `GOVERNANCE_CHANGE` proposal under
-   `GOVERNANCE_CONSTITUTION.md`, with this file updated and versioned
+   `GOVERNANCE.md` and its documented amendment process, with this file updated and versioned
    accordingly — never silently.

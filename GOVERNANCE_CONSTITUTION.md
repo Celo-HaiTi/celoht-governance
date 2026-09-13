@@ -4,10 +4,10 @@
 **Status:** Draft — adopted version must be ratified by the community
 process this document itself defines before being marked final.
 
-This constitution is the highest-authority governance document in the
-CeloHT ecosystem. Where any other document, codebase, or admin tool
-conflicts with this constitution, this constitution controls until
-amended through the process in §15.
+`GOVERNANCE.md` is the canonical CeloHT governance policy. This constitution
+is a versioned implementation and security reference that must remain
+consistent with it. Where wording needs clarification, the canonical policy
+controls until the documented governance process adopts an amendment.
 
 ## 1. Purpose
 

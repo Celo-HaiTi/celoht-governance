@@ -9,7 +9,8 @@
 | On-chain projections and RLS | `celoht-supabase` |
 | Wallet authentication | `celoht-backend` |
 | Application API | `celoht-backend` |
-| Governance business rules | `celoht-governance` |
+| Canonical governance policy | `celoht-governance/GOVERNANCE.md` |
+| Governance business rules and implementation | `celoht-governance` |
 | Admin presentation | `celoht-admin` |
 | Public wallet UI | `celoht-dapp` |
 | Treasury custody | Verified CeloHT Treasury Safe |
