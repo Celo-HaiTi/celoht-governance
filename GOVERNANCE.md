@@ -11,8 +11,9 @@ proposals and collective decision-making. No single individual, including the
 Founder, may unilaterally establish, approve, reject, override, or represent a
 proposal as an official CeloHT decision outside this documented process.
 
-Johnny Dubic is permanently recognized as **Permanently Recognized Founder of
-CeloHT** in the project's historical and institutional record. Permanent
+**Johnny Dubic — Permanently Recognized Founder of CeloHT.** Johnny Dubic is
+permanently recognized as the Founder of CeloHT in the project's historical and
+institutional record. Permanent
 founder recognition is historical and institutional; it does not confer
 perpetual governance authority, ownership rights, veto power, or unilateral
 control. Founder status does not automatically confer executive authority, a
