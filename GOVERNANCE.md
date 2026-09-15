@@ -1,18 +1,25 @@
-# CeloHT Governance
+# Celo-HaiTi Governance
 
-**Canonical policy:** This document is the canonical source for CeloHT
+**Canonical policy:** This document is the canonical source for Celo-HaiTi
 governance. `GOVERNANCE_CONSTITUTION.md` is a versioned implementation and
 security reference and must remain consistent with this policy.
 
 ## Governing principle
 
-CeloHT is governed through transparent, documented, community-driven
+Celo-HaiTi is governed through transparent, documented, community-driven
 proposals and collective decision-making. No single individual, including the
 Founder, may unilaterally establish, approve, reject, override, or represent a
-proposal as an official CeloHT decision outside this documented process.
+proposal as an official Celo-HaiTi decision outside this documented process.
 
-**Johnny Dubic — Permanently Recognized Founder of CeloHT.** Johnny Dubic is
-permanently recognized as the Founder of CeloHT in the project's historical and
+The Governance Council is Celo-HaiTi's highest ongoing collective
+decision-making body. This describes the governance body's place in the model;
+it does not create Council members, seats, or powers that have not been
+formally established through this policy. The Council is not subordinate to the
+Founder, a Director, maintainers, working groups, or any operational or
+partnership function. Those roles may act only within their documented scope.
+
+**Johnny Dubic — Permanently Recognized Founder of Celo-HaiTi.** Johnny Dubic is
+permanently recognized as the Founder of Celo-HaiTi in the project's historical and
 institutional record. Permanent
 founder recognition is historical and institutional; it does not confer
 perpetual governance authority, ownership rights, veto power, or unilateral
@@ -42,7 +49,7 @@ pending formation; no members or seats are implied.
 2. **Submission:** The proposer creates a validated proposal in `DRAFT` and
   submits it through the governance workflow.
 3. **Publication:** Proposals, status transitions, votes, quorum snapshots,
-  and execution records are published through the approved CeloHT governance
+  and execution records are published through the approved Celo-HaiTi governance
   record/API and retained in the audit log.
 4. **Review and deliberation:** An eligible reviewer other than the proposer
   moves the proposal through review and opens voting where appropriate.
@@ -61,7 +68,7 @@ pending formation; no members or seats are implied.
   subject to the documented timelock, authorization, execution verification,
   and audit requirements. Rejection is also a documented outcome.
 
-There is no CeloHT governance token. Governance is not token-weighted, and
+There is no Celo-HaiTi governance token. Governance is not token-weighted, and
 USDm and CELO are not governance voting assets.
 
 ## Lifecycle

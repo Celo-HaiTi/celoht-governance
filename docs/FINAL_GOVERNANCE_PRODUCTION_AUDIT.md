@@ -1,4 +1,4 @@
-# CeloHT Governance Production Audit
+# Celo-HaiTi Governance Production Audit
 
 Date: 2026-09-08
 Repository: `celoht-governance`

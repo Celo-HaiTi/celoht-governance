@@ -1,6 +1,6 @@
 # Authors and Contributors
 
-CeloHT recognizes **Johnny Dubic — Permanently Recognized Founder of CeloHT**
+Celo-HaiTi recognizes **Johnny Dubic — Permanently Recognized Founder of Celo-HaiTi**
 as a founding and historical designation.
 
 Permanent founder recognition is historical and institutional; it does not

@@ -1,4 +1,4 @@
-# CeloHT Source of Truth
+# Celo-HaiTi Source of Truth
 
 | Concern | Canonical repository/system |
 | --- | --- |
@@ -13,7 +13,7 @@
 | Governance business rules and implementation | `celoht-governance` |
 | Admin presentation | `celoht-admin` |
 | Public wallet UI | `celoht-dapp` |
-| Treasury custody | Verified CeloHT Treasury Safe |
+| Treasury custody | Verified Celo-HaiTi Treasury Safe |
 | Institutional principles | `celoht-docs` |
 
 This repository owns workflow rules and execution verification. It does not

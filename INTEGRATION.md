@@ -21,7 +21,7 @@ truth** — it must not maintain its own copy of proposal state, role
 assignments, or audit records; it reads and writes through the API
 contract only.
 
-## With the CeloHT dApp
+## With the Celo-HaiTi dApp
 
 The dApp consumes the public subset of `API.md` (proposal discovery,
 details, eligibility status, voting, results, history, execution

@@ -1,6 +1,6 @@
 # Synchronization Baseline
 
-Verified baseline from the public CeloHT repositories:
+Verified baseline from the public Celo-HaiTi repositories:
 
 - Network: Celo Sepolia
 - Chain ID: `11142220`

@@ -2,7 +2,7 @@
 
 ## Executive Status
 
-Repository: CeloHT Governance
+Repository: Celo-HaiTi Governance
 
 Date: 2026-09-15
 
@@ -80,7 +80,7 @@ Final status: NOT READY — remaining blockers: runtime Supabase configuration, 
 
 ### Blocker 3: Live backend/auth integration
 - Exact requirement: A real backend/auth boundary that resolves authenticated governance actors and enforces server-side authorization.
-- Exact environment variable or external service required: AUTH_SERVICE_URL, JWT_ISSUER, JWT_AUDIENCE, JWT_JWKS_URL, and any backend session configuration required by the canonical CeloHT stack
+- Exact environment variable or external service required: AUTH_SERVICE_URL, JWT_ISSUER, JWT_AUDIENCE, JWT_JWKS_URL, and any backend session configuration required by the canonical Celo-HaiTi stack
 - Why it cannot be verified locally: The repository is intentionally isolated from a live auth service and does not implement a secret-bearing auth server itself.
 - Exact command/test to run once available: Use the real backend integration test path against the live auth provider and the governance API boundary.
 
@@ -88,7 +88,7 @@ Final status: NOT READY — remaining blockers: runtime Supabase configuration, 
 
 - Production startup remains blocked until all required environment variables are injected and validated.
 - No end-to-end live governance execution can be certified without a real Celo Sepolia RPC, a verified deployment manifest, and a live Supabase instance.
-- The local workspace does not include the wider CeloHT ecosystem repositories, so cross-repository schema and deployment alignment must still be confirmed against the canonical downstream services.
+- The local workspace does not include the wider Celo-HaiTi ecosystem repositories, so cross-repository schema and deployment alignment must still be confirmed against the canonical downstream services.
 - The repository intentionally rejects defaulting or mock production data; this is secure, but it means runtime verification is externally dependent.
 
 ## Final Certification

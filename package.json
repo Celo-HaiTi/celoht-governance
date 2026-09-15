@@ -1,7 +1,7 @@
 {
   "name": "@celoht/governance",
   "version": "0.1.0",
-  "description": "Canonical governance layer for CeloHT: proposal lifecycle, voting, membership, RBAC, treasury governance rules, and audit logging.",
+  "description": "Canonical governance layer for Celo-HaiTi: proposal lifecycle, voting, membership, RBAC, treasury governance rules, and audit logging.",
   "license": "Apache-2.0",
   "private": true,
   "type": "module",

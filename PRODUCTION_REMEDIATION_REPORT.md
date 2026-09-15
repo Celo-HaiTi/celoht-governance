@@ -112,13 +112,13 @@ The following production dependencies are still external and must be supplied by
 - Real migration execution in the target Supabase/PostgreSQL environment
 - Production execution infrastructure for treasury/authenticated action execution
 
-## Cross-repository findings (CeloHT organization audit)
+## Cross-repository findings (Celo-HaiTi organization audit)
 
-The public CeloHT repositories were inspected before finalizing the production
+The public Celo-HaiTi repositories were inspected before finalizing the production
 configuration boundary:
 
 - `celoht-smart-contracts` and `celoht-indexer` identify Celo Sepolia,
-   chain ID `11142220`, as the only verified CeloHT deployment currently
+   chain ID `11142220`, as the only verified Celo-HaiTi deployment currently
    configured.
 - The verified Sepolia deployment manifest is
    `deployments/celoSepolia.json` in the smart-contract and indexer repos. It

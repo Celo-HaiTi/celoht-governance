@@ -5,7 +5,7 @@
 Do not open a public issue for a security vulnerability. Open a
 private security advisory on the `Celo-HaiTi/celoht-governance`
 GitHub repository (Security tab → "Report a vulnerability"), or
-contact the maintainers through whatever private channel the CeloHT
+contact the maintainers through whatever private channel the Celo-HaiTi
 organization designates in its top-level org profile. Include
 reproduction steps and affected version (`GOVERNANCE_VERSION`).
 

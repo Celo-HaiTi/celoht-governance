@@ -44,7 +44,7 @@ still go through the standard `Proposal`/audit record shape, but with:
 ## Required follow-up
 
 Every `EMERGENCY_TRIGGER` audit event must be followed, within a
-documented review window (set by the CeloHT community process, not
+documented review window (set by the Celo-HaiTi community process, not
 hardcoded here), by a postmortem proposal (`POLICY_CHANGE` or
 `GOVERNANCE_CHANGE` type) summarizing what happened and any process
 changes needed.

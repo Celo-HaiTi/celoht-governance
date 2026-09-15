@@ -1,6 +1,6 @@
 # Code of Conduct
 
-CeloHT is a community-governed, open-source initiative. Contributors
+Celo-HaiTi is a community-governed, open-source initiative. Contributors
 and governance participants are expected to:
 
 - Engage in good faith, especially when disagreeing about governance
@@ -13,7 +13,7 @@ and governance participants are expected to:
   repository, and use that same process to challenge or change
   outcomes rather than acting unilaterally.
 
-Reports of Code of Conduct violations should go to the CeloHT
+Reports of Code of Conduct violations should go to the Celo-HaiTi
 maintainers through the organization's designated contact channel.
 This document intentionally does not invent a specific email address
 or enforcement team roster that was not confirmed to exist.

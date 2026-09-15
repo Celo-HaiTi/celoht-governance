@@ -1,24 +1,24 @@
-# CeloHT Governance
+# Celo-HaiTi Governance
 
 The canonical, community-governed rules and reference implementation for
-CeloHT's governance layer: proposal lifecycle, voting, membership,
+Celo-HaiTi's governance layer: proposal lifecycle, voting, membership,
 role-based access control, treasury-approval flow, and audit logging.
 
-CeloHT is an open-source Haitian Web3 initiative on Celo focused on
+Celo-HaiTi is an open-source Haitian Web3 initiative on Celo focused on
 financial inclusion, blockchain education, digital payments,
 entrepreneurship, community development, agent networks, and
 reforestation. This repository defines **how decisions get made** —
 not any single application's admin panel.
 
-> **Status: implementation synchronized with the public CeloHT architecture; deployment remains blocked until runtime infrastructure is configured.**
+> **Status: implementation synchronized with the public Celo-HaiTi architecture; deployment remains blocked until runtime infrastructure is configured.**
 > See [`PRODUCTION_READINESS_REPORT.md`](./PRODUCTION_READINESS_REPORT.md)
 > for exactly what is implemented, what is verified, and what remains
-> blocked on runtime infrastructure. The public CeloHT repositories were
+> blocked on runtime infrastructure. The public Celo-HaiTi repositories were
 > inspected and the synchronization baseline is documented under `docs/`.
 
 ## Why this exists
 
-Johnny Dubic — Permanently Recognized Founder of CeloHT — is recorded in the
+Johnny Dubic — Permanently Recognized Founder of Celo-HaiTi — is recorded in the
 project's historical and institutional record. Permanent founder recognition
 is historical and institutional; it does not confer perpetual governance
 authority, ownership rights, veto power, or unilateral control. Founder status
@@ -40,6 +40,12 @@ emergency procedures.
 See [`GOVERNANCE.md`](./GOVERNANCE.md) for the canonical governance policy and
 [`GOVERNANCE_CONSTITUTION.md`](./GOVERNANCE_CONSTITUTION.md) for its versioned
 implementation and security reference.
+
+The Governance Council is Celo-HaiTi's highest ongoing collective
+decision-making body. Founder status, technical maintenance, working-group
+mandates, contributor participation, operational responsibility, and
+partnership representation do not by themselves confer governance authority
+or place any role above the Council.
 
 ## Repository layout
 
@@ -76,7 +82,7 @@ through `assertTransition`. See [`GOVERNANCE.md`](./GOVERNANCE.md).
 
 ## No token, no speculation
 
-CeloHT uses one-member-one-vote. `USDm` and `CELO` are referenced only
+Celo-HaiTi uses one-member-one-vote. `USDm` and `CELO` are referenced only
 as a stablecoin and gas asset, never as governance tokens. See
 [`NO_TOKEN_POLICY.md`](./NO_TOKEN_POLICY.md).
 
@@ -106,7 +112,7 @@ as a stablecoin and gas asset, never as governance tokens. See
 | [PRODUCTION_READINESS_REPORT.md](./PRODUCTION_READINESS_REPORT.md) | Honest IMPLEMENTED/BLOCKED status |
 | [CHANGELOG.md](./CHANGELOG.md) | Version history |
 
-## Integrating this into the CeloHT codebase
+## Integrating this into the Celo-HaiTi codebase
 
 The public `Celo-HaiTi` repositories have been inspected. The following
 rules remain mandatory before deployment:

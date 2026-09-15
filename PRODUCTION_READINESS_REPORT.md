@@ -10,7 +10,7 @@ no outbound network access at all (npm install itself failed —
 `npm error 403` against the public registry). That means:
 
 - Section 1.1 ("inspect before building") could not be performed. No
-  existing CeloHT repositories, branches, schema, or conventions were
+  existing Celo-HaiTi repositories, branches, schema, or conventions were
   inspected, because none were reachable. Everything here is built
   from zero, per the spec's own fallback instruction for that case.
 - **No test in `tests/` has actually been executed.** They are
@@ -131,7 +131,7 @@ order:
 ## Fresh cross-repository verification
 
 The previous caveat above described an earlier offline workspace state. A fresh
-read-only audit of the public CeloHT repositories has now been completed, and
+read-only audit of the public Celo-HaiTi repositories has now been completed, and
 the local verification commands have been run successfully.
 
 ### Verified Celo Sepolia deployment

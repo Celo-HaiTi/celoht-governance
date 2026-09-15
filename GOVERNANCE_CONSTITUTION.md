@@ -1,17 +1,17 @@
-# CeloHT Governance Constitution
+# Celo-HaiTi Governance Constitution
 
 **Version:** 1.0.0
 **Status:** Draft — adopted version must be ratified by the community
 process this document itself defines before being marked final.
 
-`GOVERNANCE.md` is the canonical CeloHT governance policy. This constitution
+`GOVERNANCE.md` is the canonical Celo-HaiTi governance policy. This constitution
 is a versioned implementation and security reference that must remain
 consistent with it. Where wording needs clarification, the canonical policy
 controls until the documented governance process adopts an amendment.
 
 ## 1. Purpose
 
-To ensure CeloHT is governed transparently, predictably, and by its
+To ensure Celo-HaiTi is governed transparently, predictably, and by its
 community — not by founder discretion — while remaining safe,
 auditable, and resistant to abuse.
 
@@ -28,7 +28,11 @@ separation of duties, auditability, deterministic rules, secure
 authorization, fail-closed behavior, no unilateral treasury control,
 no hidden administrative powers, reproducible decision-making, on-chain
 verifiability where appropriate, resistance to governance abuse, and
-clear emergency procedures.
+clear emergency procedures. The Governance Council is Celo-HaiTi's highest
+ongoing collective decision-making body; Founder status and operational,
+technical, working-group, contributor, or partnership responsibilities do not
+by themselves create authority above the Council or outside the documented
+governance process.
 
 ## 4. Membership
 

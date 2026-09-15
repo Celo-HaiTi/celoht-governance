@@ -1,4 +1,4 @@
-# Contributing to CeloHT Governance
+# Contributing to Celo-HaiTi Governance
 
 1. Read `GOVERNANCE.md` first — changes to governance
    *rules* (not just code style) are themselves governance actions and
