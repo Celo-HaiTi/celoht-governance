@@ -14,7 +14,7 @@ const baseSchema = z.object({
   SUPABASE_ANON_KEY: z.string().min(1),
   SUPABASE_SECRET_KEY: z.string().min(1).optional(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
-  CELO_NETWORK: z.enum(['mainnet', 'alfajores', 'sepolia']),
+  CELO_NETWORK: z.enum(['sepolia']),
   CELO_RPC_URL: z.string().url(),
   CELO_CHAIN_ID: z.coerce.number().int().positive(),
   GOVERNANCE_VERSION: z.string().min(1),

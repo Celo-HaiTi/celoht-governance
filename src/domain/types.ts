@@ -1,7 +1,7 @@
 /**
  * Core governance domain types.
  * These are the authoritative shapes referenced by celoht-backend,
- * celoht-admin, and the CeloHT dApp. Changing a shape here is a
+ * celoht-admin, and the Celo-HaiTi dApp. Changing a shape here is a
  * breaking governance-contract change and must be versioned
  * (see GOVERNANCE_VERSION in .env.example and GOVERNANCE.md).
  */

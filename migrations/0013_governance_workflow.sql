@@ -1,6 +1,8 @@
--- Canonical migration name for deployment pipelines.
--- Apply after the canonical celoht-supabase migrations. This migration owns
--- workflow state only; blockchain projections remain indexer-owned.
+-- Canonical migration proposal for deployment pipelines.
+-- Apply after the canonical celoht-supabase migrations as the next upstream
+-- migration number in the canonical chain (for example, `0018` if the upstream
+-- sequence is already at `0017`). This migration owns workflow state only;
+-- blockchain projections remain indexer-owned.
 
 begin;
 
