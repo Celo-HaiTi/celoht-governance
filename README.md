@@ -1,4 +1,4 @@
-# Celo-HaiTi Governance
+# CeloHT Governance
 
 The canonical, community-governed rules and reference implementation for
 Celo-HaiTi's governance layer: proposal lifecycle, voting, membership,
