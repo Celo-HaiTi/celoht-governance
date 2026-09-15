@@ -15,6 +15,7 @@
     "test:integration": "vitest run tests/integration",
     "test:security": "vitest run tests/security",
     "test:coverage": "vitest run --coverage",
+    "check:mock-imports": "node --loader ts-node/esm scripts/check-prohibited-mocks.ts",
     "production:readiness": "node --loader ts-node/esm scripts/production-readiness.ts",
     "validate:contracts": "node --loader ts-node/esm scripts/validate-contract-manifest.ts"
   },
