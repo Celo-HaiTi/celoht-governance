@@ -59,7 +59,7 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): GovernanceEnv 
     if (!prodParsed.success || !secretKey) {
       const missing = [
         ...(!prodParsed.success ? prodParsed.error.issues.map((i) => i.path.join('.')) : []),
-        ...(!secretKey ? ['SUPABASE_SECRET_KEY (or legacy SUPABASE_SERVICE_ROLE_KEY)'] : []),
+        ...(!secretKey ? ['SUPABASE_SECRET_KEY (or SUPABASE_SERVICE_ROLE_KEY)'] : []),
       ].join(', ');
       // FAIL CLOSED: never let production run with an unverified or
       // absent treasury/governance contract address (Section 32/34).

@@ -16,7 +16,7 @@ Final status: NOT READY — remaining blockers: runtime Supabase configuration, 
 | Typecheck | READY | npm run typecheck completed successfully. |
 | Tests | READY | 6 test files passed, 31 tests passed via npm test. |
 | Security | READY WITH CONDITIONS | Guard for prohibited mock imports implemented and enforced in CI; runtime security model is coherent, but live auth/RPC/Supabase verification remains external. |
-| Dependencies | READY WITH CONDITIONS | npm audit --audit-level=high reported 0 vulnerabilities after install; dependency resolution required legacy-peer-deps because the workspace pinned Vitest 5 with Node 20 types. |
+| Dependencies | READY WITH CONDITIONS | npm audit --audit-level=high reported 0 vulnerabilities after install; dependency resolution required the peer-dependency compatibility option because the workspace pinned Vitest 5 with Node 20 types. |
 | Auth | NOT VERIFIED | No live backend auth provider or runtime session infrastructure was available. The repository has a secure contract boundary, but not a live integration proof. |
 | Authorization | READY | RBAC and fail-closed capability checks are implemented and covered by tests. |
 | Database | BLOCKED | Migration SQL exists and is logically sound, but no live Supabase/PostgreSQL instance was available to apply and verify the schema. |
@@ -43,7 +43,7 @@ Final status: NOT READY — remaining blockers: runtime Supabase configuration, 
 - Problem: Dependency installation initially failed because Vitest 5 requires newer Node types than the project specified. This was a tooling compatibility issue rather than an application logic issue.
 - Security/business impact: Without the correct install path, the project cannot be reliably verified in CI or local environments, which creates a reproducibility risk.
 - Repair performed: No dependency downgrade was introduced. The workspace was installed with the repo's current dependency graph using the supported compatibility path for the local environment. The project’s CI remains pinned to Node 20 and the repo remained otherwise unchanged.
-- Verification performed: npm install --legacy-peer-deps succeeded, npm run typecheck, npm run lint, npm test, and npm run build all passed.
+- Verification performed: npm install with the peer-dependency compatibility option succeeded, npm run typecheck, npm run lint, npm test, and npm run build all passed.
 - Remaining dependency: The local environment should continue using an npm install flow compatible with the lockfile and Node 20 toolchain. Production CI must be run in the same Node version range to avoid future drift.
 
 ### ID: F-003
