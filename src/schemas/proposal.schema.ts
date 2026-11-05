@@ -35,7 +35,7 @@ export const CreateProposalInputSchema = z.object({
   quorumBps: z.number().int().min(1).max(10000).optional(),
   approvalThresholdBps: z.number().int().min(1).max(10000).optional(),
   executionDelaySeconds: z.number().int().min(0).optional(),
-  metadata: z.record(z.unknown()).default({}),
+  metadata: z.record(z.string(), z.unknown()).default({}),
 });
 export type CreateProposalInput = z.infer<typeof CreateProposalInputSchema>;
 

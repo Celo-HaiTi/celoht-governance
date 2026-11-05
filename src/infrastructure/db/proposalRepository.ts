@@ -86,7 +86,7 @@ export class SupabaseProposalRepository implements ProposalRepository {
     limit: number;
     cursor?: string;
   }): Promise<{ items: Proposal[]; nextCursor: string | null }> {
-    let query = this.client.from('governance_workflows').select('*').limit(filter.limit);
+    let query = this.client.from('governance_workflows').select('*').order('id', { ascending: true }).limit(filter.limit);
     if (filter.status) query = query.eq('status', filter.status);
     if (filter.proposalType) query = query.eq('proposal_type', filter.proposalType);
     if (filter.proposerId) query = query.eq('proposer_id', filter.proposerId);

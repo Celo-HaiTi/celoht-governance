@@ -1,34 +1,29 @@
 # DATA MODEL
 
-Full DDL: `migrations/001_init_governance_schema.sql`. Summary:
+Workflow DDL proposal: `migrations/0013_governance_workflow.sql`. It is not
+proof that these tables have been applied to the canonical Supabase project.
+Summary of the schema in that migration:
 
 | Table | Purpose | Notable constraints |
 |---|---|---|
-| `governance_roles` | Reference list of roles | seeded, primary key `role` |
-| `governance_permissions` | Role → capability mapping (mirrors `rbac.ts`) | composite PK |
-| `governance_members` | Membership + status | `status` check constraint |
-| `governance_member_roles` | Many-to-many member↔role | composite PK, FK cascade |
-| `governance_proposals` | The proposal record | `status`/`proposal_type` check constraints, voting-window check |
-| `governance_proposal_actions` | Executable payload for a proposal | separate audit trail from the proposal itself |
-| `governance_votes` | Individual votes | **unique partial index** `(proposal_id, member_id) WHERE invalidated = false` |
-| `governance_quorum_snapshots` | Immutable point-in-time quorum computation | insert-only by convention |
-| `governance_timelocks` | Queued-proposal timelock tracking | PK is `proposal_id` |
-| `governance_executions` | Execution records | `execution_tx_hash` format check + uniqueness |
-| `governance_audit_logs` | Append-only audit trail | **trigger rejects UPDATE/DELETE** |
-| `governance_settings` | Versioned governance parameters | PK is `version` |
+| `governance_workflows` | Proposal workflow state | status/type checks, voting and queue window checks |
+| `governance_workflow_members` | Governance identity and roles | unique auth user and wallet; status check |
+| `governance_workflow_votes` | Individual votes | one active vote per proposal/member; voting power fixed at one |
+| `governance_workflow_quorum_snapshots` | Point-in-time quorum computation | nonnegative counts; proposal foreign key |
+| `governance_workflow_idempotency` | Mutation idempotency records | key length and expiry checks |
+| `governance_workflow_audit_logs` | Append-only audit trail | trigger rejects UPDATE/DELETE |
+| `governance_workflow_executions` | Verified execution records | unique proposal and transaction hash; hash/status/chain checks |
 
 ## Design choices
 
-- UUIDs (`gen_random_uuid()` via `pgcrypto`) throughout for
-  cross-service uniqueness without coordination.
+- UUIDs are used for workflow/member references; database defaults generate
+  IDs for votes, quorum snapshots, audit logs, and execution records.
 - Duplicate-vote prevention and append-only audit logging are enforced
   at the database level, not only in application code — defense in
   depth against a bug or a compromised application server.
-- `governance_proposal_actions.target_contract_address` is nullable
-  and unconstrained at the DB level by design: the *application*
-  layer (via `env.ts` / verified config) is responsible for ensuring
-  only verified addresses are ever written here. The DB schema alone
-  cannot verify a real deployment.
+- Execution target details are carried in workflow metadata and checked by the
+  application execution verifier. The database schema alone cannot verify a
+  real deployment or transaction.
 
 ## Not yet implemented
 

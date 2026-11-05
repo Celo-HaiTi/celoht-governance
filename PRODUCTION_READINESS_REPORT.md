@@ -62,7 +62,7 @@ no outbound network access at all (npm install itself failed —
 
 ## Data
 
-- Schema/migrations: **IMPLEMENTED** (`migrations/001_init_governance_schema.sql`)
+- Schema/migrations: **IMPLEMENTED** (`migrations/0013_governance_workflow.sql`; proposed, not applied)
 - Constraints, indexes, append-only trigger: **IMPLEMENTED** in SQL
 - Actually applied to a database and verified: **BLOCKED BY EXTERNAL
   DEPENDENCY** — no database connection was available in this
@@ -172,12 +172,13 @@ operation that must be verified on Celo before recording `EXECUTED`.
 Fresh commands run in this workspace:
 
 ```text
-npm run typecheck        PASS
-npm test -- --run        PASS (25 tests)
-npm run build            PASS
-npm run lint             PASS with 17 existing warnings, 0 errors
-npm run production:readiness  BLOCKED as expected without runtime config
-npm audit --audit-level=high  reports 5 toolchain vulnerabilities
+npm run typecheck            PASS
+npm test                     PASS (32 tests across 7 files)
+npm run lint                 PASS (0 errors)
+npm run build                PASS
+npm run production:readiness BLOCKED as expected without runtime config
+npm audit --omit=dev         PASS (0 vulnerabilities)
+npm audit --audit-level=high PASS (0 high; 9 moderate in dev tooling)
 ```
 
 The repository must remain **BLOCKED** for production until the real Supabase
@@ -199,3 +200,40 @@ Additional implementation gates now present in the repository:
 - `BackendAuthenticator` integrates the backend's verified actor resolver and
   does not duplicate its HMAC session cryptography.
 - CI runs typecheck, lint, tests, build, and high-severity dependency audit.
+
+## Current workspace verification (2026-11-05)
+
+This status records checks performed in the currently available
+`celoht-governance` workspace. Other ecosystem repositories, a deployment
+manifest file, and live Supabase/RPC credentials are not present in this
+workspace; the cross-repository notes above are documented prior findings and
+were not independently revalidated in this session.
+
+- **VERIFIED WORKING** — `npm ci`, TypeScript typecheck, all 32 tests,
+  ESLint, production TypeScript build, and the cursor-pagination regression
+  test pass. Proposal listing now orders by `id` ascending before applying its
+  cursor and limit.
+- **INTEGRATION/E2E TESTS NOT AVAILABLE** — this checkout has unit and security
+  tests only; it has no `tests/integration` suite and no dApp/indexer workspace
+  against which to run cross-service workflows.
+- **IMPLEMENTED BUT NOT VERIFIED** — governance HTTP/repository integration,
+  Sepolia configuration checks, deployment-manifest validator, and migration
+  SQL exist locally, but no live API, database, or chain workflow was tested.
+- **BLOCKED** — production readiness lacks required runtime configuration;
+  migration application, API-to-Supabase operations, RPC connectivity,
+  contract-manifest verification, and deployment were not performed. The
+  contract manifest is not available in this workspace.
+- **NOT IMPLEMENTED IN THIS REPOSITORY** — indexer synchronization and the
+  dApp's wallet, education, agent, reforestation, activity, and end-to-end user
+  workflows belong to separate repositories that are not available here.
+- **SECURITY STATUS** — Zod was upgraded to 4.6.7 and Vite to 8.3.5;
+  non-breaking transitive updates were applied. Production dependencies have
+  zero audit findings and the full tree has no high findings. Nine moderate
+  findings remain in development tooling (Vitest and the TypeScript ESLint
+  dependency tree). Do not use forced broad upgrades without compatibility
+  review. The Vitest optional peer requirement still conflicts with this
+  package's `@types/node` 20 declaration during dependency resolution, but
+  standard `npm ci` succeeds from the updated lockfile.
+
+No migrations, production secrets, remote repositories, deployments, or
+irreversible operations were changed during these checks.

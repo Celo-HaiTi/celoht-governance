@@ -19,7 +19,7 @@ reproduction steps and affected version (`GOVERNANCE_VERSION`).
   `proposal.status` without `assertTransition`.
 - **Duplicate-vote prevention** — enforced at both the application
   layer and the database layer (unique partial index).
-- **Fail-closed configuration** — `src/infrastructure/config/env.ts`
+- **Fail-closed configuration** — `src/infrastructure/env.ts`
   refuses to start rather than substitute development defaults in
   production, and refuses to start production without verified
   contract addresses.
@@ -33,24 +33,27 @@ reproduction steps and affected version (`GOVERNANCE_VERSION`).
   cryptographic recovery to an injected, established library rather
   than implementing its own crypto.
 - **Append-only audit log** — enforced by a PostgreSQL trigger
-  (`migrations/001_init_governance_schema.sql`), not just application
+  (`migrations/0013_governance_workflow.sql`), not just application
   discipline.
 - **Secret-shaped key stripping** in audit metadata
   (`AuditService.record`) as defense in depth.
+- **HTTP and Supabase adapters** — implemented in `src/api/httpServer.ts`
+  and `src/infrastructure/db/`; not yet verified against live services.
 
 ## What this repository does NOT implement (see THREAT_MODEL.md / PRODUCTION_READINESS_REPORT.md)
 
-- Actual network transport / HTTP layer (no server is included — this
-  is the domain + application + data layer, meant to be mounted by
-  `celoht-backend`).
-- A real Supabase/Postgres adapter (the `*Repository` interfaces are
-  defined; concrete implementations are not, since no real database
-  credentials or existing schema were available).
+- Live API authentication/session integration and end-to-end workflows
+  through `celoht-backend` are not verified in this repository's
+  environment.
+- Live Supabase/Postgres connectivity, migration application, and RLS
+  behavior are not verified; the migration proposal defines no user-facing
+  policies and revokes direct `anon`/`authenticated` access.
 - Rate limiting, WAF-level protections, or DDoS mitigation — these
   belong at the API gateway / infrastructure layer, not in this
   domain library.
-- Multisig / on-chain contract code — this repo governs the *decision*
-  to execute, not the execution mechanics themselves.
+- Multisig signing or transaction submission — this repo governs the
+  *decision* to execute and can verify a submitted transaction, but does not
+  perform treasury execution itself.
 
 ## Secure defaults
 

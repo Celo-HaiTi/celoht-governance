@@ -3,30 +3,32 @@
 ## Required infrastructure (none of which is provisioned by this repo)
 
 - A PostgreSQL database (Supabase or otherwise) to run
-  `migrations/001_init_governance_schema.sql` against.
-- A Celo RPC endpoint (mainnet and/or testnet depending on
-  environment).
-- Deployed and verified governance/timelock contracts and a treasury
-  multisig, with their addresses available as environment
-  configuration — never invented.
+  the reviewed governance workflow migration against.
+- A Celo Sepolia RPC endpoint. This repository supports Celo Sepolia
+  only; Mainnet is not an allowed deployment target.
+- The verified Celo Sepolia governance contract, USDm token, and treasury
+  Safe addresses, injected through the runtime environment — never invented.
 - A secret manager for `SUPABASE_SERVICE_ROLE_KEY` and any signing
   credentials (never in `.env` files committed to the repo).
 
 ## Environment variables
 
-See `.env.example` for the full list and `src/infrastructure/config/env.ts`
+See `.env.example` for the full list and `src/infrastructure/env.ts`
 for validation rules. Production additionally requires
-`GOVERNANCE_CONTRACT_ADDRESS`, `TIMELOCK_CONTRACT_ADDRESS`,
-`TREASURY_MULTISIG_ADDRESS`, and `USDM_TOKEN_ADDRESS` to be present
-and address-shaped — `loadEnv()` throws `MISSING_CONFIGURATION` and
-refuses to start otherwise.
+`GOVERNANCE_CONTRACT_ADDRESS`, `TREASURY_MULTISIG_ADDRESS`, and
+`USDM_TOKEN_ADDRESS` to match the verified Celo Sepolia deployment.
+`loadEnv()` refuses to start otherwise. The execution delay is persistent
+service state; no separate timelock contract address is configured.
 
 ## Migrations
 
-Run `migrations/001_init_governance_schema.sql` via your standard
-migration tool (Supabase CLI, `psql`, or a migration framework of
-`celoht-backend`'s choosing). This repo does not bundle a migration
-runner to avoid conflicting with an existing one.
+`migrations/0013_governance_workflow.sql` is a migration proposal, not proof
+that the canonical Supabase schema contains these tables. Review it against
+the actual `celoht-supabase` migration history and apply it through that
+repository's migration process as the next available migration number. Never
+edit an already-applied migration or apply this proposal directly to a
+production database without authorization. This repository does not bundle a
+migration runner.
 
 ## Status legend used throughout this doc set
 
